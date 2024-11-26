@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestures Videos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        header {
+            background-color: #343a40; /* Darker shade for header */
+            color: #74f0ed;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 4px solid #ea445a; /* Border to separate header */
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        nav {
+            margin-top: 30px; /* Space between navbar and header */
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 18px;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            color: #ea445a;
+        }
+
+        footer {
+            background-color: #343a40; /* Same as header */
+            color: #74f0ed;
+            padding: 15px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 4px solid #ea445a; /* Border to separate footer */
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .video-card {
+            background-color: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .video-card img {
+            max-width: 100%;
+            height: auto;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .video-card .card-body {
+            padding: 20px;
+        }
+
+        .video-card h3 {
+            color: #ea445a;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+        }
+
+        .video-card p {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .video-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .video-card .video-container video {
+            max-width: 220px;
+            max-height: 180px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-video {
+            color: #ea445a;
+            font-weight: bold;
+        }
+
+        .video-description {
+            background-color: #74f0ed; /* Light blue background */
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #000000;
+        }
+
+        .text-danger {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ea445a;
+        }
+
+        .row {
+            margin-top: 30px; /* Add space above the video rows */
+        }
+    </style>
+</head>
+<body>
+
+     <!-- Include Header -->
+     {% include 'header.html' %}
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">SignHub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('upload_form') }}">Upload Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_all_videos') }}">View Videos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="container">
+        <h2 class="text-center text-danger mb-4">Gestures Videos List</h2>
+
+        <!-- Brief Description of Gesture Videos -->
+        <div class="video-description">
+            <h3 class="text-center text-dark">Explore Gesture Videos</h3>
+            <p class="text-center">Welcome to our collection of gesture videos. Here, you can explore various sign language gestures from different dialects of Pakistan. These videos aim to assist in learning and understanding sign language, offering a valuable resource for the deaf community and those interested in sign language communication.</p>
+        </div>
+
+        <div class="row">
+            {% for gesture in gestures %}
+                <div class="col-md-6 mb-4"> <!-- Two boxes per row -->
+                    <div class="video-card">
+                        <!-- Video Thumbnail and Link to Gesture Detail -->
+                        <a href="{{ url_for('gesture_detail', gesture_id=gesture._id) }}">
+                            <div class="video-container">
+                                {% if gesture.video_url %}
+                                    <video controls>
+                                        <source src="{{ gesture.video_url }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                {% else %}
+                                    <p class="no-video">No video available for this gesture.</p>
+                                {% endif %}
+                            </div>
+                        </a>
+
+                        <!-- Gesture Details -->
+                        <div class="card-body">
+                            <h3>{{ gesture.name }}</h3>
+                            <p><strong>Description:</strong> {{ gesture.description }}</p>
+                            <p><strong>Dialect(s):</strong> {{ gesture.dialect }}</p>
+                            <p><strong>Submitted by:</strong> {{ gesture.submitted_by }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
