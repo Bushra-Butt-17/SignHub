@@ -1,6 +1,4 @@
-Here’s a detailed and professional `README.md` file that includes the MongoDB database structure and collections, along with all the features implemented so far:
 
-```markdown
 # Gesture Detail Web Application
 
 ## Overview
