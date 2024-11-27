@@ -14,11 +14,11 @@
         }
 
         header {
-            background-color: #343a40; /* Darker shade for header */
+            background-color: #343a40;
             color: #74f0ed;
             padding: 30px;
             text-align: center;
-            border-bottom: 4px solid #ea445a; /* Border to separate header */
+            border-bottom: 4px solid #ea445a;
         }
 
         header h1 {
@@ -28,7 +28,7 @@
         }
 
         nav {
-            margin-top: 30px; /* Space between navbar and header */
+            margin-top: 30px;
         }
 
         nav a {
@@ -43,12 +43,12 @@
         }
 
         footer {
-            background-color: #343a40; /* Same as header */
+            background-color: #343a40;
             color: #74f0ed;
             padding: 15px;
             text-align: center;
             margin-top: 30px;
-            border-top: 4px solid #ea445a; /* Border to separate footer */
+            border-top: 4px solid #ea445a;
         }
 
         .container {
@@ -63,6 +63,7 @@
             margin-bottom: 20px;
             overflow: hidden;
             transition: transform 0.3s ease;
+            color: #333; /* Ensure text is visible */
         }
 
         .video-card:hover {
@@ -88,6 +89,7 @@
         .video-card p {
             font-size: 1.1em;
             margin-bottom: 8px;
+            color: #555; /* Better readability */
         }
 
         .video-container {
@@ -108,8 +110,8 @@
         }
 
         .video-description {
-            background-color: #74f0ed; /* Light blue background */
-            color: #333;
+            background-color: #74f0ed;
+            color: #ffffff;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -129,37 +131,14 @@
         }
 
         .row {
-            margin-top: 30px; /* Add space above the video rows */
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
-     <!-- Include Header -->
-     {% include 'header.html' %}
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#">SignHub</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('upload_form') }}">Upload Video</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('show_all_videos') }}">View Videos</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Include Header -->
+    {% include 'header.html' %}
 
     <!-- Main content -->
     <main class="container">
@@ -167,13 +146,13 @@
 
         <!-- Brief Description of Gesture Videos -->
         <div class="video-description">
-            <h3 class="text-center text-dark">Explore Gesture Videos</h3>
+            <h3 class="text-center">Explore Gesture Videos</h3>
             <p class="text-center">Welcome to our collection of gesture videos. Here, you can explore various sign language gestures from different dialects of Pakistan. These videos aim to assist in learning and understanding sign language, offering a valuable resource for the deaf community and those interested in sign language communication.</p>
         </div>
 
         <div class="row">
             {% for gesture in gestures %}
-                <div class="col-md-6 mb-4"> <!-- Two boxes per row -->
+                <div class="col-md-6 mb-4">
                     <div class="video-card">
                         <!-- Video Thumbnail and Link to Gesture Detail -->
                         <a href="{{ url_for('gesture_detail', gesture_id=gesture._id) }}">
@@ -211,13 +190,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
 
 
 

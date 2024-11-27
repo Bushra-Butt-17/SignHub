@@ -3,8 +3,15 @@ from pymongo import MongoClient
 import gridfs
 from bson import ObjectId  # Import ObjectId for MongoDB ObjectID manipulation
 from datetime import datetime
+from flask_bcrypt import Bcrypt
+from flask import Flask, request, jsonify, render_template, redirect, url_for, Response, session, flash
 
+# Initialize Flask-Bcrypt
 app = Flask(__name__)
+import secrets
+app.secret_key = secrets.token_hex(16)  # Generates a 32-character hexadecimal secret key
+
+bcrypt = Bcrypt(app)
 
 # Replace with your MongoDB Atlas connection string
 MONGO_URI = "mongodb+srv://bsdsf21m020:ZnmtirpcUlMusr1u@gestures.qg4td.mongodb.net/?retryWrites=true&w=majority&appName=Gestures"
@@ -17,12 +24,28 @@ fs = gridfs.GridFS(db)   # Initialize GridFS for file storage
 # Example structure for the gestures collection
 gestures_collection = db["gestures"]
 
+
+# Database for user management
+user_db = client["user_management"]
+users_collection = user_db["users"]  # Collection for user authentication
+
+
+
 @app.route('/')
 def home():
     return render_template('home.html')  # Use a proper template for the homepage
+
+
+
+
 @app.route('/upload_form')
 def upload_form():
     return render_template('upload_video.html')
+
+
+
+
+
 @app.route('/upload_video', methods=['POST'])
 def upload_video():
     # Ensure that a file is provided in the request
@@ -95,6 +118,9 @@ def gesture_detail(gesture_id):
     # Render the gesture detail page with the specific gesture's data
     return render_template('gesture_detail.html', gesture=gesture)
 
+
+
+
 # Route to serve video
 @app.route('/video/<video_id>', methods=['GET'])
 def get_video(video_id):
@@ -104,6 +130,99 @@ def get_video(video_id):
         return Response(video_file, content_type='video/mp4')
     except gridfs.errors.NoFile:
         return "Video not found", 404
+    
+
+
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # Look for the user in the user_management database
+        user = users_collection.find_one({"email": email})
+        if user and bcrypt.check_password_hash(user['password'], password):
+            # Save user info in session
+            session['user_id'] = str(user['_id'])
+            session['name'] = user['name']
+            session['role'] = user['role']
+
+            # Redirect based on role
+            if user['role'] == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            elif user['role'] == 'contributor':
+                return redirect(url_for('contributor_dashboard'))
+            elif user['role'] == 'viewer':
+                return redirect(url_for('viewer_dashboard'))
+        else:
+            return "Invalid email or password", 401
+    
+    return render_template('login.html')
+
+
+
+
+@app.route('/contributor')
+def contributor_dashboard():
+    if session.get('role') != 'contributor':
+        return "Unauthorized Access", 403
+    name = session.get('name', 'User')  # Default to 'User' if name is missing
+    return f"Welcome to the Contributor Dashboard, {name}!"
+
+
+
+
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        # Get form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        role = request.form.get('role', 'viewer')  # Default role is 'viewer'
+
+        # Check if the email already exists
+        existing_user = users_collection.find_one({"email": email})
+        if existing_user:
+            flash("Email already registered. Please log in.", "danger")
+            return redirect(url_for('signup'))
+
+        # Hash the password using bcrypt
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+        # Create a new user document
+        new_user = {
+            "name": name,
+            "email": email,
+            "password": hashed_password,
+            "role": role
+        }
+
+        # Insert the new user into the user_management database
+        users_collection.insert_one(new_user)
+
+        flash("Signup successful! Please log in.", "success")  # Success message
+        return redirect(url_for('login'))
+    
+    return render_template('signup.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
