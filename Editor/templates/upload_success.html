@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Success</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .success-message {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .details {
+            margin-top: 30px;
+        }
+        .back-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Include Header -->
+    {% include 'header.html' %}
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">SignHub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('upload_form') }}">Upload Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_all_videos') }}">View Videos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Title -->
+<div class="container">
+    <div class="success-message">
+        <h2>Gesture Video Uploaded Successfully!</h2>
+        <p>Thank you for your contribution. Your gesture has been successfully uploaded.</p>
+    </div>
+
+    <div class="details">
+        <h3>Gesture Details:</h3>
+        <ul>
+            <li><strong>Name:</strong> {{ gesture.name }}</li>
+            <li><strong>Description:</strong> {{ gesture.description }}</li>
+            <li><strong>Dialects:</strong> {{ gesture.dialect | join(', ') }}</li>
+            <li><strong>Submitted By:</strong> {{ gesture.submitted_by }}</li>
+            <li><strong>Status:</strong> {{ gesture.status }}</li>
+            <li><strong>Submitted On:</strong> {{ gesture.created_at }}</li>
+        </ul>
+    </div>
+
+    <div class="back-btn">
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Home</a>
+
+    </div>
+</div>
+
+</body>
+</html>

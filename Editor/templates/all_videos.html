@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestures Video List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .header {
+            background-color: #000000;
+            color: #74f0ed;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .gesture {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .gesture h3 {
+            color: #ea445a;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .gesture p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .video-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .gesture .video-container video {
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-video {
+            color: #ea445a;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #000000;
+        }
+
+        /* Custom styles for two-column layout */
+        .gesture-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gesture-row .gesture-video {
+            flex: 1;
+            max-width: 45%;
+            margin-right: 20px;
+        }
+
+        .gesture-row .gesture-details {
+            flex: 1;
+            max-width: 45%;
+        }
+
+        /* Make layout responsive */
+        @media (max-width: 768px) {
+            .gesture-row {
+                flex-direction: column;
+                text-align: center;
+            }
+            .gesture-row .gesture-video,
+            .gesture-row .gesture-details {
+                max-width: 100%;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">SignHub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('upload_form') }}">Upload Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_all_videos') }}">View Videos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="container">
+    <div class="header">
+        <h1>Gestures Videos List</h1>
+    </div>
+
+    {% for gesture in gestures %}
+        <div class="gesture">
+            <div class="gesture-row">
+                <!-- Video Section -->
+                <div class="gesture-video">
+                    <h3 class="text-center text-danger">{{ gesture.name }}</h3>
+                    <div class="video-container">
+                        {% if gesture.video_url %}
+                            <video width="100%" controls>
+                                <source src="{{ gesture.video_url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% else %}
+                            <p class="no-video">No video available for this gesture.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Details Section -->
+                <div class="gesture-details">
+                    <h3 class="text-danger">{{ gesture.name }}</h3>
+                    <p><strong>Description:</strong> {{ gesture.description }}</p>
+                    <p><strong>Dialect(s):</strong> {{ gesture.dialect }}</p>
+                    <p><strong>Submitted by:</strong> {{ gesture.submitted_by }}</p>
+                </div>
+            </div>
+            <hr>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 Gesture Repository</p>
+</div>
+
+</body>
+</html>
