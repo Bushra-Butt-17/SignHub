@@ -14,7 +14,7 @@ app.secret_key = secrets.token_hex(16)  # Generates a 32-character hexadecimal s
 bcrypt = Bcrypt(app)
 
 # Replace with your MongoDB Atlas connection string
-MONGO_URI = "mongodb+srv://bsdsf21m020:ZnmtirpcUlMusr1u@gestures.qg4td.mongodb.net/?retryWrites=true&w=majority&appName=Gestures"
+MONGO_URI = ""
 
 # Initialize the MongoDB client and GridFS
 client = MongoClient(MONGO_URI)
