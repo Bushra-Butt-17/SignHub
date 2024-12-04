@@ -1,0 +1,21 @@
+<!-- category.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category_name }} - SignHub</title>
+</head>
+<body>
+    <h1>Videos in {{ category_name }} Category</h1>
+    <ul>
+        {% for video in videos %}
+            <li>{{ video.title }}</li>
+            <p>{{ video.description }}</p>
+            <!-- Add more video details or a link to view the video -->
+        {% else %}
+            <li>No videos available in this category yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

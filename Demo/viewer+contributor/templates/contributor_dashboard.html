@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributor Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet"> <!-- Stylish Font -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff6f61, #6a5acd); /* Bold and visible gradient */
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif; /* Stylish Font Applied */
+            color: #fff;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #fddb92, #d1fdff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3rem; /* Increased for boldness */
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .profile-card {
+            background: linear-gradient(to bottom right, #ffffff, #f8d7da);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-card h3 {
+            font-size: 2.8rem;
+            color: #ff6f61;
+        }
+
+        .profile-card p {
+            margin: 5px 0;
+            font-size: 1.4rem;
+        }
+
+        .star-rating {
+            color: #ffc107; /* Gold for rating stars */
+            font-size: 2rem; /* Larger for emphasis */
+        }
+
+        .btn {
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease-in-out;
+            font-family: 'Poppins', sans-serif; /* Stylish Font for Buttons */
+        }
+
+        .btn-primary {
+            background-color: #ff6f61;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff4633;
+        }
+
+        .btn-secondary {
+            background-color: #6a5acd;
+            border: none;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #483d8b;
+        }
+
+        .btn-warning {
+            background-color: #f39c12;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(145deg, #ffecd2, #fcb69f); /* Softer gradient */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #333;
+            font-size: 1.2rem; /* Increased font size for better visibility */
+            font-family: 'Poppins', sans-serif; /* Stylish Font for Cards */
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-title {
+            font-size: 1.6rem; /* Larger card titles */
+            font-weight: 700;
+        }
+
+        .card-text {
+            font-size: 1.3rem; /* Increased text size in cards */
+        }
+
+        .status {
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .status.pending {
+            color: #f39c12; /* Amber for pending */
+        }
+
+        .status.accepted {
+            color: #27ae60; /* Green for accepted */
+        }
+
+        .status.rejected {
+            color: #e74c3c; /* Red for rejected */
+        }
+
+        .no-gestures {
+            font-size: 1.4rem;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <!-- Header -->
+        <h1 class="gradient-text mb-4">📹 Contributor Dashboard</h1>
+
+        <!-- Profile Section -->
+        <div class="profile-card">
+            <h3>Ali Khan</h3> <!-- Person's name -->
+            <p>Gestures Submitted: <strong>15</strong></p>
+            <p>Rating: 
+                <span class="star-rating">★★★★★</span>
+            </p>
+        </div>
+
+        <!-- Add Gesture and Back to Home Buttons -->
+        <div class="d-flex justify-content-between mb-4">
+            <a href="{{ url_for('home') }}" class="btn btn-secondary btn-lg fw-bold px-4 py-2">
+                🏠 Back to Home
+            </a>
+            <a href="/upload" class="btn btn-primary">➕ Add Gesture</a>
+        </div>
+
+        <!-- Gestures Section -->
+        <h2 class="text-white text-center mb-4">Your Contributed Gestures</h2>
+        <div class="row">
+            <!-- Gesture Card Example -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Gesture 1</h5>
+                        <p class="card-text">📂 Category: <strong>Basic Signs</strong></p>
+                        <p class="card-text">🌐 Dialect: <strong>Urdu</strong></p>
+                        <p class="card-text">📝 Description: Basic greeting gesture.</p>
+                        <p class="card-text">📌 Status: 
+                            <span class="status pending">Pending</span>
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a href="#" class="btn btn-warning btn-sm">✏️ Edit</a>
+                            <a href="#" class="btn btn-danger btn-sm">🗑️ Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Gesture Cards -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Gesture 2</h5>
+                        <p class="card-text">📂 Category: <strong>Expressions</strong></p>
+                        <p class="card-text">🌐 Dialect: <strong>Punjabi</strong></p>
+                        <p class="card-text">📝 Description: Happy expression gesture.</p>
+                        <p class="card-text">📌 Status: 
+                            <span class="status accepted">Accepted</span>
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a href="#" class="btn btn-warning btn-sm">✏️ Edit</a>
+                            <a href="#" class="btn btn-danger btn-sm">🗑️ Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Gesture 3</h5>
+                        <p class="card-text">📂 Category: <strong>Advanced Signs</strong></p>
+                        <p class="card-text">🌐 Dialect: <strong>Sindhi</strong></p>
+                        <p class="card-text">📝 Description: Questioning gesture.</p>
+                        <p class="card-text">📌 Status: 
+                            <span class="status rejected">Rejected</span>
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a href="#" class="btn btn-warning btn-sm">✏️ Edit</a>
+                            <a href="#" class="btn btn-danger btn-sm">🗑️ Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Gestures Message -->
+        <p class="no-gestures" style="display: none;">No gestures found. Click "Add Gesture" to contribute!</p>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

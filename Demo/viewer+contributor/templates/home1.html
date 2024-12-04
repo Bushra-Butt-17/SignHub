@@ -1,0 +1,203 @@
+<!-- /templates/viewer_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignHub - Viewer Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            
+            background: linear-gradient(to right, #ffcc00, #0066cc); /* Yellow to Blue gradient */
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        .navbar {
+            background-color: #0066cc;
+        }
+        .navbar a {
+            color: white !important;
+            padding: 12px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar a:hover {
+            background-color: #ffcc00;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        h1, h2 {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            text-align: center;
+        }
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            margin-top: 30px;
+        }
+        .search-bar {
+            margin-top: 20px;
+        }
+        .search-bar input {
+            width: 60%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .category-box, .dialect-box {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .category-box a, .dialect-box a {
+            text-decoration: none;
+            color: #0066cc;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .category-box:hover, .dialect-box:hover {
+            background-color: #ffcc00;
+            transform: scale(1.05);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="py-4">
+        <h1>Viewer Dashboard</h1>
+    </header>
+
+    <!-- Navbar -->
+    <div class="navbar navbar-expand-lg navbar-dark">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="/view_by_categories">View by Categories</a>
+        <a href="/view_by_dialects">View by Dialects</a>
+        <a href="{{ url_for('video_gallery') }}">Go to Video Gallery</a>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Explore Gesture Videos</h2>
+        <p class="text-center text-white">Welcome to the Viewer Dashboard! Explore various sign language gestures. Use the search bar or select categories/dialects to find specific gestures.</p>
+
+        <!-- Search Bar -->
+        <div class="search-bar text-center">
+            <input type="text" id="search-bar" placeholder="Search for gestures..." class="form-control mx-auto">
+        </div>
+
+        <!-- Explore by Categories & Dialects - 50/50 Layout -->
+        <div class="row mt-4">
+            <!-- Explore by Categories -->
+            <div class="col-md-6">
+                <h3 class="text-center text-white">Browse by Categories</h3>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="category-box">
+                            <a href="/category/education">Education</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="category-box">
+                            <a href="/category/health">Health</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="category-box">
+                            <a href="/category/emotions">Emotions</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="category-box">
+                            <a href="/category/greetings">Greetings</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="category-box">
+                            <a href="/category/food">Food</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="category-box">
+                            <a href="/category/animals">Animals</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explore by Dialects -->
+            <div class="col-md-6">
+                <h3 class="text-center text-white">Browse by Dialects</h3>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="dialect-box">
+                            <a href="/dialect/punjabi">Punjabi</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="dialect-box">
+                            <a href="/dialect/siraiki">Siraiki</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="dialect-box">
+                            <a href="/dialect/pashto">Pashto</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="dialect-box">
+                            <a href="/dialect/sindhi">Sindhi</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="dialect-box">
+                            <a href="/dialect/urdu">Urdu</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="dialect-box">
+                            <a href="/dialect/balochi">Balochi</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 SignHub. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS (optional for further interaction) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
