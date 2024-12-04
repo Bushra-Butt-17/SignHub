@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - SignHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('viewer_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                <li><a href="{{ url_for('search') }}">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Search Results</h1>
+
+        {% if gestures %}
+            <ul>
+                {% for gesture in gestures %}
+                    <li>
+                        <a href="{{ url_for('gesture_detail', gesture_id=gesture._id) }}">
+                            {{ gesture.name }} - {{ gesture.description }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No gestures found for your search query.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SignHub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<h1>Recent Gestures</h1>
+
+{% if gestures %}
+    <ul>
+        {% for gesture in gestures %}
+            <li>
+                <a href="{{ url_for('gesture_detail', gesture_id=gesture._id) }}">
+                    {{ gesture.name }} - {{ gesture.description }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No gesture available yet.</p>
+{% endif %}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesture Detail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General Styles */
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333; /* Default text color */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #007bff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            font-size: 1.1em;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #d1eaff;
+        }
+
+        /* Container Styles */
+        .container {
+            margin-top: 20px;
+        }
+
+        .gesture-detail {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .gesture-detail h2 {
+            color: #007bff;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .gesture-detail video {
+            width: 100%;
+            max-width: 500px; /* Limit video size */
+            height: auto;
+            margin: 0 auto 20px;
+            display: block; /* Center the video */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .gesture-detail p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #333; /* Ensure text is dark and visible */
+        }
+
+        .gesture-detail strong {
+            color: #007bff; /* Highlighted text for emphasis */
+        }
+
+        .no-video {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-link a {
+            color: #007bff;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .back-link a:hover {
+            color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #343a40;
+            color: #adb5bd;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    {% include 'header.html' %}
+
+    <!-- Navbar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="/all_videos">View Videos</a>
+        <a href="#">About</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="gesture-detail">
+            <h2>{{ gesture.name }}</h2>
+
+            <!-- Video Section -->
+            <div class="video-container">
+                {% if gesture.video_id %}
+                    <video controls>
+                        <source src="{{ url_for('get_video', video_id=gesture.video_id) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% else %}
+                    <p class="no-video">No video available for this gesture.</p>
+                {% endif %}
+            </div>
+
+            <!-- Gesture Details -->
+            <p><strong>Description:</strong> 
+                {% if gesture.description %}
+                    {{ gesture.description }}
+                {% else %}
+                    No description available for this gesture.
+                {% endif %}
+            </p>
+
+            <p><strong>Dialect(s):</strong> {{ gesture.dialect or "Not specified" }}</p>
+            <p><strong>Submitted by:</strong> {{ gesture.submitted_by or "Anonymous" }}</p>
+
+            <!-- Back Link -->
+            <div class="back-link">
+                <a href="/all_videos">Back to Video List</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewer Dashboard - SignHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('viewer_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                <li><a href="{{ url_for('search') }}">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome to the Viewer Dashboard!</h1>
+
+        <!-- Recent Gestures Section -->
+        <section>
+            <h2>Recent Gestures</h2>
+            <ul>
+                {% for gesture in gestures %}
+                    <li>
+                        <a href="{{ url_for('gesture_detail', gesture_id=gesture._id) }}">
+                            {{ gesture.name }} - {{ gesture.description }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li>No gestures available yet.</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Categories Section -->
+        <section>
+            <h2>Categories</h2>
+            <ul>
+                {% for category in categories %}
+                    <li><a href="#">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Featured Contributors Section -->
+        <section>
+            <h2>Featured Contributors</h2>
+            <ul>
+                {% for contributor in contributors %}
+                    <li>{{ contributor.name }} - <a href="{{ url_for('profile', user_id=contributor._id) }}">View Profile</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Search Bar -->
+        <section>
+            <form action="{{ url_for('search') }}" method="get">
+                <input type="text" name="query" placeholder="Search Gestures...">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SignHub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
