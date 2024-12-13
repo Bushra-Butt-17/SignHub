@@ -1,6 +1,5 @@
 
 <img src='https://github.com/user-attachments/assets/2803aa99-843a-4d2b-bb78-7644bf293924' width=100%>
----
 
 # 🌟 Sign Language Corpus Crowdsourcing Platform
 
