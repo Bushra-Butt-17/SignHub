@@ -1,0 +1,7 @@
+Flask==2.2.2          # Web framework
+pymongo==4.5.0        # MongoDB driver
+Flask-WTF==1.1.1      # Form handling
+gunicorn==20.1.0      # Production WSGI server
+dnspython==2.3.0      # Required for MongoDB Atlas connection
+Flask-Bcrypt==1.0.1   # Password hashing
+Flask-Sessions==0.4.0 # Session management
