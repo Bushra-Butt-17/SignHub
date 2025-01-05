@@ -1,5 +1,5 @@
 
----
+<img src='https://github.com/user-attachments/assets/2803aa99-843a-4d2b-bb78-7644bf293924' width=100%>
 
 # 🌟 Sign Language Corpus Crowdsourcing Platform
 
@@ -186,16 +186,5 @@ This project focuses on developing a crowdsourcing platform to create, validate,
 
 ---
 
-![img1](https://github.com/user-attachments/assets/b2a9666c-561c-45cd-9b5b-440a9c0ee91c)
-![img2](https://github.com/user-attachments/assets/667205dd-3457-4299-ae0e-b7fd770ddae3)
-
-![img3](https://github.com/user-attachments/assets/2e4e8c3c-9b2b-42b0-973e-e389fd1ccef0)
-![img4](https://github.com/user-attachments/assets/4c86f9d2-abc3-4166-9835-aeafb1df408c)
-
-![img5](https://github.com/user-attachments/assets/a240f2bf-e74d-41a3-9faf-c491f59ad49f)
-![img9](https://github.com/user-attachments/assets/02111609-aa8d-45ed-abac-426336f3f9d2)
-![img8](https://github.com/user-attachments/assets/4ed52341-79c0-4d47-ab71-953ba30a127c)
-![img7](https://github.com/user-attachments/assets/9511149f-18df-4c02-a801-cbb7b1436032)
-![img6](https://github.com/user-attachments/assets/26a56558-3c91-4ee8-8914-0347dd2f63d0)
 
 
